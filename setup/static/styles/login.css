@@ -1,0 +1,90 @@
+/* static/styles/login.css */
+:root {
+    --deepseek-purple: #6e3aff;
+    --primary-light: #8e6bff;
+    --deepseek-dark: #1a1a2e;
+    --deepseek-light: #f8f9fa;
+    --deepseek-gradient: linear-gradient(135deg, #6e3aff 0%, #a56cff 100%);
+    --primary-color: #6e3aff;
+    --primary-dark: #5a2fd6;
+    --secondary-color: #1a1a2e;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gradient: linear-gradient(135deg, var(--primary-color) 0%, #8e6bff 100%);
+}
+
+.navbar {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--deepseek-light);
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--gradient) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.brand-text {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(110, 58, 255, 0.1);
+}
+
+h1 {
+    color: var(--deepseek-purple);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background: var(--deepseek-gradient);
+    border: none;
+    padding: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.form-control {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.form-control:focus {
+    border-color: var(--deepseek-purple);
+    box-shadow: 0 0 0 0.25rem rgba(110, 58, 255, 0.25);
+}
+
+.link-primary {
+    color: var(--deepseek-purple);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-primary:hover {
+    text-decoration: underline;
+}

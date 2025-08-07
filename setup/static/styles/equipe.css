@@ -1,0 +1,185 @@
+:root {
+    --primary-color: #6e3aff;
+    --primary-light: #8e6bff;
+    --primary-dark: #5a2fd6;
+    --danger-color: #ff4757;
+    --success-color: #28a745;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gray-color: #6c757d;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f7fa;
+    color: var(--dark-color);
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.brand-text {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Botões */
+.btn-back {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateX(-3px);
+}
+
+.btn-save {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+.btn-delete {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #ff2d3d;
+    transform: translateY(-2px);
+}
+
+.btn-outline-success {
+    color: var(--success-color);
+    border: 2px solid var(--success-color);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-success:hover {
+    color: white;
+    background-color: var(--success-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+.btn-outline-danger {
+    color: var(--danger-color);
+    border: 2px solid var(--danger-color);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+    color: white;
+    background-color: var(--danger-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 71, 87, 0.2);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+}
+
+.card-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Formulários */
+.form-control {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(110, 58, 255, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Lista de Rounds */
+.round-item {
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.round-item:hover {
+    background-color: rgba(110, 58, 255, 0.05);
+    transform: translateX(3px);
+}
+
+/* Estado Vazio */
+.empty-state {
+    background-color: rgba(110, 58, 255, 0.03);
+    border-radius: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .card-header {
+        text-align: center;
+    }
+    
+    .card-title {
+        justify-content: center;
+    }
+    
+    .btn-delete {
+        width: 100%;
+    }
+}
+
+/* Centralizar botão verticalmente em relação ao input */
+.row.g-3.align-items-center .col-md-4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

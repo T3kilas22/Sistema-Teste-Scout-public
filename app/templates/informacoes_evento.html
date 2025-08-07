@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ evento.nome }} - FTC Event Scout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/evento.css' %}">
+</head>
+<body>
+    {% include 'partials/navbar.html' %}
+
+
+    <div class="container py-4">
+        <!-- Botão Voltar -->
+        <button class="btn btn-back mb-4" onclick="location.href='{% url 'index' %}'">
+            <i class="fas fa-arrow-left me-2"></i>Voltar
+        </button>
+
+        <!-- Cabeçalho do Evento -->
+        <header class="event-header mb-5 text-center">
+            <h1 class="event-title">{{ evento.nome }}</h1>
+            <div class="event-date">
+                <i class="far fa-calendar-alt me-2"></i>{{ evento.data|date:"d/m/Y" }}
+            </div>
+        </header>
+
+        <main>
+            <!-- Botões de Ações do Evento -->
+            <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+                <button class="btn btn-outline-primary" onclick="location.href='{% url 'editar_evento' evento.id %}'">
+                    <i class="fas fa-edit me-2"></i>Editar Evento
+                </button>
+                <button class="btn btn-outline-danger" onclick="location.href='{% url 'excluir_evento' evento.id %}'">
+                    <i class="fas fa-trash-alt me-2"></i>Excluir Evento
+                </button>
+                <button class="btn btn-outline-warning" onclick="location.href='{% url 'visao_geral_evento' evento.id %}'">
+                    <i class="fas fa-eye me-2"></i>Visão Geral
+                </button>
+            </div>
+
+            <!-- Seção de Equipes -->
+            <section class="card teams-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-users me-2"></i>Equipes Participantes
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <!-- Barra de Busca -->
+                    <div class="mb-4">
+                        <input type="text" id="searchBox" class="form-control" placeholder="Buscar equipes..." onkeyup="filterTeams()">
+                    </div>
+                    <!-- Formulário para Adicionar Equipe -->
+                    <form action="{% url 'informacoes_evento' evento.id %}" method="POST" class="mb-4" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nome" class="form-label">Nome da Equipe</label>
+                                <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome da equipe. Ex: Riverpollo#26963" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="foto" class="form-label">Foto da Equipe</label>
+                                <input type="file" name="foto" id="foto" class="form-control file-input">
+                            </div>
+                            <div class="col-md-2 acima-de-4 d-flex align-items-end">
+                                <label for="" class="form-label"></label> 
+                                <button type="submit" class="btn btn-add-team w-100">
+                                    <i class="fas fa-plus-circle me-2"></i>Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Lista de Equipes -->
+                    {% if equipes %}
+                    <div class="teams-list" id="teamsList">
+                        {% for equipe in equipes %}
+                        <div class="team-item">
+                            <a href="{% url 'informacoes_equipe' equipe.id %}" class="team-link">
+                                <div class="team-icon">
+                                    {% if equipe.foto %}
+                                        <img src="{{ equipe.foto.url }}" alt="" class="team-photo-icon">
+                                    {% else %}
+                                        <img src="{% static 'itc-imagem.png' %}" alt="" class="team-photo-icon">
+                                    {% endif %}
+                                </div>
+                                <div class="team-info">
+                                    <h3 class="team-name">{{ equipe.nome }}</h3>
+                                    <small class="team-meta">Clique para ver detalhes</small>
+                                </div>
+                                <div class="team-arrow">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="empty-state text-center py-5">
+                        <h4 class="text-muted">Nenhuma equipe cadastrada ainda</h4>
+                        <p class="text-muted">Adicione sua primeira equipe usando o formulário acima</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    {% include 'partials/rodape.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filterTeams() {
+            const searchInput = document.getElementById('searchBox').value.toLowerCase();
+            const teams = document.querySelectorAll('.team-item');
+            teams.forEach(team => {
+                const teamName = team.querySelector('.team-name').textContent.toLowerCase();
+                team.style.display = teamName.includes(searchInput) ? '' : 'none';
+            });
+        }
+        
+    </script>
+</body>
+</html>

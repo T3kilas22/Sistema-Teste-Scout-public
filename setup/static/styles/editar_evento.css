@@ -1,0 +1,116 @@
+:root {
+    --primary-color: #6e3aff;
+    --primary-dark: #5a2fd6;
+    --secondary-color: #1a1a2e;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gradient: linear-gradient(135deg, var(--primary-color) 0%, #8e6bff 100%);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f7fa;
+    color: var(--dark-color);
+}
+
+
+/* Botão Voltar */
+.btn-back {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.btn-back:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateX(-3px);
+}
+
+/* Cabeçalho */
+.edit-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(110, 58, 255, 0.1);
+}
+
+.edit-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+/* Card do Formulário */
+.edit-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Formulário */
+.form-control {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(110, 58, 255, 0.25);
+}
+
+.form-control-lg {
+    font-size: 1.1rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-text {
+    color: var(--gray-color);
+    font-size: 0.85rem;
+}
+
+/* Botão Salvar */
+.btn-save {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .edit-title {
+        font-size: 1.75rem;
+    }
+    
+    .edit-card {
+        margin: 0 -1rem;
+        border-radius: 0;
+    }
+}

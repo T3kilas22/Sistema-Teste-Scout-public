@@ -1,0 +1,191 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ round.nome }} - FTC Event Scout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles/round.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
+</head>
+<body>
+    {% include 'partials/navbar.html' %}
+
+
+    <div class="container py-4">
+        <!-- Botão Voltar -->
+        <button class="btn btn-primary mb-4" onclick="location.href='{% url 'informacoes_equipe' equipe.id %}'">
+            <i class="fas fa-arrow-left me-2"></i>Voltar para Equipe
+        </button>
+
+        <!-- Cabeçalho -->
+        <header class="round-header text-center mb-5">
+            <h1 class="round-title">
+                <i class="fas fa-flag-checkered me-2"></i>{{ round.nome }}
+            </h1>
+            <p class="text-muted">Registre as informações deste round</p>
+        </header>
+
+        <!-- Card de Pontuação -->
+        <div class="card shadow-lg mb-5">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-list-check me-2"></i>Pontuação
+                </h2>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'informacoes_round' round.id %}" method="POST">
+                    {% csrf_token %}
+                    <script>
+                        let historyStack = [];
+
+                        function updateValue(inputId, newValue) {
+                            const inputElement = document.getElementById(inputId);
+                            historyStack.push({ id: inputId, previousValue: inputElement.value });
+                            inputElement.value = newValue;
+                        }
+
+                        function undoLastChange() {
+                            if (historyStack.length > 0) {
+                                const lastChange = historyStack.pop();
+                                document.getElementById(lastChange.id).value = lastChange.previousValue;
+                            } else {
+                                alert("Nada para desfazer!");
+                            }
+                        }
+                    </script>
+
+                    <!-- Seção Autônomo -->
+                    <div class="scoring-section mb-4">
+                        <h3 class="section-title">
+                            <i class="fas fa-robot me-2"></i>Fase Autônoma
+                        </h3>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Foco:</label>
+                            <input type="text" name="autonomo_foco" id="autonomo_foco" 
+                                   value="{{ round.autonomo_foco|default:'0' }}" class="form-control scoring-input" readonly>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <button type="button" class="btn btn-focus" onclick="updateValue('autonomo_foco', 'Clip')">
+                                    <i class="fas fa-paperclip me-1"></i>Clip
+                                </button>
+                                <button type="button" class="btn btn-focus" onclick="updateValue('autonomo_foco', 'Basket')">
+                                    <i class="fas fa-basketball me-1"></i>Basket
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Pontuação:</label>
+                            <input type="text" name="autonomo_pontuacao" id="autonomo_pontuacao" 
+                                   value="{{ round.autonomo_pontuacao|default:0 }}" class="form-control scoring-input" readonly>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <button type="button" class="btn btn-outline-primary" onclick="updateValue('autonomo_pontuacao', parseInt(document.getElementById('autonomo_pontuacao').value) + 20)">
+                                    Clip +20
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" onclick="updateValue('autonomo_pontuacao', parseInt(document.getElementById('autonomo_pontuacao').value) + 12)">
+                                    Clip +12
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="updateValue('autonomo_pontuacao', parseInt(document.getElementById('autonomo_pontuacao').value) + 16)">
+                                    Basket +16
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="updateValue('autonomo_pontuacao', parseInt(document.getElementById('autonomo_pontuacao').value) + 8)">
+                                    Basket +8
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="updateValue('autonomo_pontuacao', parseInt(document.getElementById('autonomo_pontuacao').value) + 4)">
+                                    Basket +4
+                                </button>
+                                <button type="button" class="btn btn-outline-success" onclick="updateValue('autonomo_pontuacao', parseInt(document.getElementById('autonomo_pontuacao').value) + 3)">
+                                    Park +3
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção Teleoperado -->
+                    <div class="scoring-section mb-4">
+                        <h3 class="section-title">
+                            <i class="fas fa-gamepad me-2"></i>Fase Teleoperada
+                        </h3>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Foco:</label>
+                            <input type="text" name="teleoperado_foco" id="teleoperado_foco" 
+                                   value="{{ round.teleoperado_foco|default:'0' }}" class="form-control scoring-input" readonly>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <button type="button" class="btn btn-focus" onclick="updateValue('teleoperado_foco', 'Clip')">
+                                    <i class="fas fa-paperclip me-1"></i>Clip
+                                </button>
+                                <button type="button" class="btn btn-focus" onclick="updateValue('teleoperado_foco', 'Basket')">
+                                    <i class="fas fa-basketball me-1"></i>Basket
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Pontuação:</label>
+                            <input type="text" name="teleoperado_pontuacao" id="teleoperado_pontuacao" 
+                                   value="{{ round.teleoperado_pontuacao|default:0 }}" class="form-control scoring-input" readonly>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <button type="button" class="btn btn-outline-primary" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 10)">
+                                    Clip +10
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 6)">
+                                    Clip +6
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 8)">
+                                    Basket +8
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 4)">
+                                    Basket +4
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 2)">
+                                    Basket +2
+                                </button>
+                                <button type="button" class="btn btn-outline-success" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 3)">
+                                    Park +3
+                                </button>
+                                <button type="button" class="btn btn-outline-success" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 15)">
+                                    Park +15
+                                </button>
+                                <button type="button" class="btn btn-outline-success" onclick="updateValue('teleoperado_pontuacao', parseInt(document.getElementById('teleoperado_pontuacao').value) + 30)">
+                                    Park +30
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="action-buttons mt-4">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-outline-warning w-100" onclick="undoLastChange()">
+                                    <i class="fas fa-undo me-2"></i>Desfazer
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-outline-success w-100">
+                                    <i class="fas fa-save me-2"></i>Salvar
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-outline-danger w-100" 
+                                        onclick="if(confirm('Tem certeza que deseja excluir este round?')) { location.href='{% url 'excluir_round' round.id %}'; }">
+                                    <i class="fas fa-trash-alt me-2"></i>Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'partials/rodape.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
